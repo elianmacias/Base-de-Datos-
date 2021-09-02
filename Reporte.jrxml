@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c23fb54c-83a3-452a-a8ef-44986f4dab28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select
+p1.pelicula_titulo as pelicula ,
+sum(a1.costo_arriendo) as total
+from Pelicula as p1
+inner join Alquiler  as a1 on p1.pelicula_id=a1.pelicula_id
+group by pelicula
+]]>
+	</queryString>
+	<field name="pelicula" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="179" y="0" width="218" height="55" uuid="ff58d37e-d72c-4750-b95c-48deb47a4e1a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA["MACIAS"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="55" width="218" height="20" uuid="b17f1734-7952-4c93-b623-7a8272a19011"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Alquiler de las mejores Películas ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="397" y="0" width="102" height="94" uuid="ef994f3e-266e-471d-9f36-d4f5ff25e0bf"/>
+				<imageExpression><![CDATA["D:\\Descargas\\pelicula.jfif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="79" y="0" width="420" height="35" uuid="59942cb5-447d-4a5a-98b2-40fd59def993"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Total Recaudado por Pelicula]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="290" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="79" y="10" width="420" height="280" uuid="3a6893d4-2b78-4137-9144-973251070f2a"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Valor de Alquiler"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{pelicula}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#990000"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
